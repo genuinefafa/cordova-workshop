@@ -3,7 +3,7 @@ var EmployeeService = function() {
     var url;
 
     this.initialize = function(serviceURL) {
-        url = serviceURL ? serviceURL : "http://localhost:5000/employees";
+        url = serviceURL ? serviceURL : "http://192.168.33.143:5000/employees";
         var deferred = $.Deferred();
         deferred.resolve();
         return deferred.promise();

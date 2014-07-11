@@ -47,6 +47,10 @@ var EmployeeService = function () {
         return deferred.promise();
     }
 
+    this.findAll = function() {
+      return this.findByName("");
+    }
+
     this.findById = function (id) {
         var deferred = $.Deferred();
         this.db.transaction(
