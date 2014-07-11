@@ -1,7 +1,13 @@
 // We use an "Immediate Function" to initialize the application to avoid leaving anything behind in the global scope
 (function () {
 
+    /* -------------------------------- Templates ------------------------------------------ */
+    var homeTpl = Handlebars.compile($("#home-tpl").html());
+    var employeeListTpl = Handlebars.compile($("#employee-list-tpl").html());
+
     /* ---------------------------------- Local Variables ---------------------------------- */
+
+
     var service = new EmployeeService();
     service.initialize().done(function () {
         console.log("Service initialized");
@@ -27,22 +33,12 @@
     /* ---------------------------------- Local Functions ---------------------------------- */
     function findByName() {
         service.findByName($('.search-key').val()).done(function (employees) {
-            var l = employees.length;
-            var e;
-            $('.employee-list').empty();
-            for (var i = 0; i < l; i++) {
-                e = employees[i];
-                $('.employee-list').append('<li><a href="#employees/' + e.id + '">' + e.firstName + ' ' + e.lastName + '</a></li>');
-            }
+          $('.content').html(employeeListTpl(employees));
         });
     }
 
     function renderHomeView() {
-      var html =
-        "<h1>Directory</h1>" +
-        "<input class='search-key' type='search' placeholder='Enter name'/>" +
-        "<ul class='employee-list'></ul>";
-      $('body').html(html);
+      $('body').html(homeTpl());
       $('.search-key').on('keyup', findByName);
     }
 
